@@ -1,49 +1,60 @@
 package com.hospital.entity;
 
-import org.jspecify.annotations.Nullable;
+import com.hospital.enums.Gender;
+import com.hospital.enums.Role;
+import jakarta.persistence.*;
+
+import java.sql.Date;
+import java.time.LocalDate;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;  
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users{
 
-	@Id
-	private Long id;
-	
-	@Column(name = "username" , length = 30)
-	private String username;
-	
-	@Column(name = "password" , length = 150)
-	private String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public @Nullable CharSequence getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Column(name="e_mail",nullable = false, unique = true)
+    private String email;
+    
+    @Column(name="firstname")
+    private String firstname;
+    
+    @Column(name="lastname")
+    private String lastname;
 
-	public void setPassword(@Nullable String encode) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Column(nullable = false)
+    private String password;
+    
+    @Column(name="phone",length=10)
+    private String phone;
+    
+    @Column(name="day_of_birth")
+    private LocalDate dayOfBirth;
+    
+    @Column(name = "tc_no")  
+    private String tcNo;
+    
+    @Column(name="gender")
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
-	public void setRole(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    private boolean isActive = true;
 
 }

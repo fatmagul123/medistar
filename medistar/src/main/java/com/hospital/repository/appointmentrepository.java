@@ -2,12 +2,29 @@ package com.hospital.repository;
 
 import com.hospital.entity.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.time.LocalDateTime;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
-public interface appointmentrepository extends JpaRepository<Appointment, Long> {
+@Repository
+public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
+    
+	List<Appointment> findByPatientEmail(String email);
+	
+    List<Appointment> findByDoctorIdAndAppointmentDate(Long doctorId, LocalDate date);
 
-    boolean existsByDoctorNameAndAppointmentDateAndIsCancelledFalse(String doctorName, LocalDateTime date);
-  
-    List<Appointment> findByUserIdAndIsCancelledFalse(Long userId);
+    List<Appointment> findByPatientIdOrderByAppointmentDateDescAppointmentTimeDesc(Long patientId);
+
+    List<Appointment> findByDoctorIdAndAppointmentDateOrderByAppointmentTimeAsc(Long doctorId, LocalDate date);
+    boolean existsByDoctorIdAndAppointmentDateAndAppointmentTime(
+            Long doctorId, 
+            LocalDate appointmentDate, 
+            LocalTime appointmentTime
+    );
+
+
+
+   
 }

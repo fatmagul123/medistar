@@ -1,12 +1,14 @@
 package com.hospital.repository;
 
 import com.hospital.entity.Users;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class UserRepository {
+import java.util.Optional;
 
-	public Users save(Users user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+@Repository
+public interface UserRepository extends JpaRepository<Users, Long> {
 
+	boolean existsByEmail(String email);
+ 
 }
